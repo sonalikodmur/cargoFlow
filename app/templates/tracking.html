@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Tracking | Supply Chain{% endblock %}
+{% block content %}
+<section class="hero-banner mb-4">
+    <h2 class="hero-title mb-1">Shipment Tracking & Route Optimization</h2>
+    <p class="hero-subtitle mb-0">Monitor current movement and compare optimized alternatives.</p>
+</section>
+
+<div class="row g-3 mb-4">
+    <div class="col-12 col-lg-7">
+        <div class="panel-card h-100">
+            <h5 class="panel-title mb-3">Live Shipment Map</h5>
+            <div class="map-legend mb-2">
+                <span><i class="legend-dot normal-dot"></i> Normal Shipment</span>
+                <span><i class="legend-dot alert-dot"></i> High Risk Alert</span>
+            </div>
+            <div>
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-5">
+        <div class="panel-card h-100">
+            <h5 class="panel-title mb-3">Route Comparison</h5>
+            <div>
+                <div id="route-details" class="small text-muted">Select a shipment from the table.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel-card">
+    <h5 class="panel-title mb-3">Shipment Data</h5>
+    <div class="table-responsive">
+        <table class="table table-theme align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Status</th>
+                    <th>Risk</th>
+                    <th>Reason</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="shipments-body"></tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+>
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+></script>
+<script src="{{ url_for('static', filename='js/tracking.js') }}"></script>
+{% endblock %}

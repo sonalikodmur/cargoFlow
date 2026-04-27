@@ -1,0 +1,263 @@
+:root {
+    --theme-dark: #102A71;
+    --theme-yellow: #F5C400;
+    --theme-bg: #FFFDF0;
+    --theme-text: #1b243d;
+    --theme-card: #ffffff;
+    --shadow-soft: 0 10px 30px rgba(16, 42, 113, 0.12);
+}
+
+body {
+    background: var(--theme-bg);
+    color: var(--theme-text);
+    font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+.app-navbar {
+    background: linear-gradient(120deg, #0f2462 0%, #102A71 70%);
+    box-shadow: var(--shadow-soft);
+    min-height: 72px;
+}
+
+.logo-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--theme-yellow);
+    display: inline-block;
+    margin-right: 7px;
+}
+
+.navbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.brand-logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.12);
+    padding: 2px;
+}
+
+.text-nav-muted {
+    color: #ced6ff;
+}
+
+.profile-chip {
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    background: rgba(245, 196, 0, 0.25);
+    border: 1px solid rgba(245, 196, 0, 0.45);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.btn-theme {
+    background: var(--theme-yellow);
+    color: #2f2a00;
+    border: none;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 0.6rem 1rem;
+}
+
+.btn-theme:hover {
+    background: #fbd94f;
+}
+
+.btn-theme-outline {
+    border: 1px solid rgba(245, 196, 0, 0.65);
+    color: var(--theme-yellow);
+}
+
+.btn-theme-outline:hover {
+    background: rgba(245, 196, 0, 0.14);
+    color: #fff0ad;
+}
+
+.dash-shell {
+    min-height: calc(100vh - 72px);
+}
+
+.sidebar {
+    background: #122f7f;
+    min-height: calc(100vh - 72px);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-title {
+    color: #f4f0cb;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.side-link {
+    color: #d7e2ff;
+    text-decoration: none;
+    border-radius: 12px;
+    padding: 0.55rem 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.side-link:hover,
+.side-link.active {
+    background: rgba(245, 196, 0, 0.18);
+    color: #fff7d0;
+}
+
+.hero-banner {
+    border-radius: 18px;
+    background: linear-gradient(135deg, #102A71 0%, #1a3f9b 100%);
+    color: #fff;
+    padding: 1.15rem 1.2rem;
+    box-shadow: var(--shadow-soft);
+}
+
+.hero-title {
+    font-size: 1.45rem;
+    font-weight: 700;
+}
+
+.hero-subtitle {
+    color: #dbe5ff;
+}
+
+.metric-card {
+    border-radius: 18px;
+    background: var(--theme-card);
+    padding: 1rem 1.1rem;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid #f0f0e5;
+}
+
+.metric-label {
+    margin-bottom: 0.25rem;
+    color: #657194;
+    font-weight: 600;
+}
+
+.metric-hint {
+    color: #9ba5c1;
+}
+
+.panel-card {
+    border-radius: 18px;
+    background: var(--theme-card);
+    padding: 1.1rem;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid #f0f0e5;
+}
+
+.panel-title {
+    color: var(--theme-dark);
+    font-weight: 700;
+}
+
+.table-theme thead th {
+    background: #f7f9ff;
+    color: #294281;
+    font-weight: 700;
+    border-bottom: none;
+}
+
+.table-theme td,
+.table-theme th {
+    border-color: #edf1fb;
+}
+
+#map {
+    width: 100%;
+    height: 360px;
+    border-radius: 14px;
+    background: #eef2f7;
+}
+
+.map-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: #54607f;
+}
+
+.legend-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.35rem;
+}
+
+.normal-dot {
+    background: #2d6cdf;
+}
+
+.alert-dot {
+    background: #d92d20;
+}
+
+.alerts-stack {
+    max-height: 410px;
+    overflow-y: auto;
+    display: grid;
+    gap: 0.65rem;
+}
+
+.alert-item {
+    border: 1px solid #edf2ff;
+    border-radius: 12px;
+    padding: 0.7rem 0.75rem;
+    background: #fbfcff;
+}
+
+.chart-card {
+    background: #fbfcff;
+    border: 1px solid #edf2ff;
+    border-radius: 14px;
+    padding: 0.7rem;
+}
+
+.chart-title {
+    color: #536495;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+}
+
+.theme-modal {
+    border-radius: 16px;
+    border: 1px solid #e5eaf9;
+}
+
+.app-alert {
+    border-radius: 12px;
+}
+
+.risk-high {
+    color: #b42318;
+    font-weight: 700;
+}
+
+.risk-medium {
+    color: #b54708;
+    font-weight: 700;
+}
+
+.risk-low {
+    color: #027a48;
+    font-weight: 700;
+}
+
+@media (max-width: 991px) {
+    .sidebar {
+        min-height: auto;
+    }
+}

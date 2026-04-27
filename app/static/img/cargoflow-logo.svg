@@ -1,0 +1,13 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Left yellow arrow -->
+  <path d="M20 72V116H34V78L50 62L42 54L20 72Z" fill="#F2D45C"/>
+  <path d="M8 52L0 60L20 80L28 72L8 52Z" fill="#F2D45C"/>
+
+  <!-- Middle blue arrow -->
+  <path d="M58 112V38H70V112H58Z" fill="#7BB9D9"/>
+  <path d="M64 14L46 32H82L64 14Z" fill="#7BB9D9"/>
+
+  <!-- Right green arrow -->
+  <path d="M90 96V112H102V100L116 86L108 78L90 96Z" fill="#61B58F"/>
+  <path d="M112 70L104 78L122 96L128 90L112 70Z" fill="#61B58F"/>
+</svg>

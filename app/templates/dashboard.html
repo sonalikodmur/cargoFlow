@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | Supply Chain{% endblock %}
+{% block content %}
+<section class="hero-banner mb-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div>
+            <h2 class="hero-title mb-1">{{ current_user.role|capitalize }} Supply Chain Dashboard</h2>
+            <p class="hero-subtitle mb-0">Live monitoring, disruption prediction, and route intelligence.</p>
+        </div>
+        {% if current_user.role == 'admin' %}
+        <button class="btn btn-theme" id="open-add-modal-btn">+ Add Shipment</button>
+        {% endif %}
+    </div>
+</section>
+
+{% if current_user.role == 'admin' %}
+<div class="row g-3 mb-4">
+    <div class="col-12 col-md-6 col-xl-4">
+        <div class="metric-card">
+            <p class="metric-label">Total Shipments</p>
+            <h3 id="total-shipments">0</h3>
+            <small class="metric-hint">Across all active logistics lanes</small>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-4">
+        <div class="metric-card">
+            <p class="metric-label">High Risk Shipments</p>
+            <h3 id="high-risk-alerts">0</h3>
+            <small class="metric-hint">Require operational intervention</small>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-4">
+        <div class="metric-card">
+            <p class="metric-label">Alerts Count</p>
+            <h3 id="alerts-count">0</h3>
+            <small class="metric-hint">Latest weather/delay/route alerts</small>
+        </div>
+    </div>
+</div>
+
+<section class="panel-card mb-4" id="manage-shipments">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="panel-title mb-0">Manage Shipments</h5>
+        <button class="btn btn-theme btn-sm" id="open-add-modal-btn-inline">+ Add</button>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-theme align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Status</th>
+                    <th>Risk</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="admin-shipments-body"></tbody>
+        </table>
+    </div>
+</section>
+
+<section class="row g-3 mb-4" id="alerts-panel">
+    <div class="col-12 col-xl-5">
+        <div class="panel-card h-100">
+            <h5 class="panel-title mb-3">Alerts Management</h5>
+            <div id="alerts-container" class="alerts-stack"></div>
+        </div>
+    </div>
+    <div class="col-12 col-xl-7" id="analytics-panel">
+        <div class="panel-card h-100">
+            <h5 class="panel-title mb-3">Analytics</h5>
+            <div class="row g-3">
+                <div class="col-12 col-md-6">
+                    <div class="chart-card">
+                        <p class="chart-title">Shipment Status</p>
+                        <canvas id="status-chart"></canvas>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="chart-card">
+                        <p class="chart-title">Risk Levels</p>
+                        <canvas id="risk-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </section>
+
+<section class="panel-card mb-4" id="map-panel">
+    <h5 class="panel-title mb-2">Track Map</h5>
+    <div class="map-legend mb-2">
+        <span><i class="legend-dot normal-dot"></i> Normal Shipment</span>
+        <span><i class="legend-dot alert-dot"></i> High Risk Alert</span>
+    </div>
+    <div id="map"></div>
+</section>
+{% else %}
+<div class="row g-3 mb-4">
+    <div class="col-12 col-md-4">
+        <div class="metric-card">
+            <p class="metric-label">Total Shipments</p>
+            <h3 id="total-shipments">0</h3>
+            <small class="metric-hint">All assigned shipments</small>
+        </div>
+    </div>
+    <div class="col-12 col-md-4">
+        <div class="metric-card">
+            <p class="metric-label">Active Shipments</p>
+            <h3 id="active-shipments">0</h3>
+            <small class="metric-hint">In transit right now</small>
+        </div>
+    </div>
+    <div class="col-12 col-md-4">
+        <div class="metric-card">
+            <p class="metric-label">Delayed Shipments</p>
+            <h3 id="delayed-shipments">0</h3>
+            <small class="metric-hint">Need attention today</small>
+        </div>
+    </div>
+</div>
+
+<section class="panel-card mb-4" id="shipments-table">
+    <h5 class="panel-title mb-3">View Shipments</h5>
+    <div class="table-responsive">
+        <table class="table table-theme align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Status</th>
+                    <th>Risk</th>
+                    <th>Reason</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="user-shipments-body"></tbody>
+        </table>
+    </div>
+</section>
+
+<section class="row g-3 mb-4">
+    <div class="col-12 col-xl-8" id="map-panel">
+        <div class="panel-card h-100">
+            <h5 class="panel-title mb-3">Track Map</h5>
+            <div class="map-legend mb-2">
+                <span><i class="legend-dot normal-dot"></i> Normal Shipment</span>
+                <span><i class="legend-dot alert-dot"></i> High Risk Alert</span>
+            </div>
+            <div id="map"></div>
+        </div>
+    </div>
+    <div class="col-12 col-xl-4" id="alerts-panel">
+        <div class="panel-card h-100">
+            <h5 class="panel-title mb-3">Recent Alerts</h5>
+            <div id="alerts-container" class="alerts-stack"></div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<div class="modal fade" id="shipmentModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content theme-modal">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="shipment-modal-title">Add Shipment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="shipment-form">
+                    <input type="hidden" id="shipment-id">
+                    <div class="mb-2"><input id="source" class="form-control" placeholder="Source" required></div>
+                    <div class="mb-2"><input id="destination" class="form-control" placeholder="Destination" required></div>
+                    <div class="mb-2"><input id="location" class="form-control" placeholder="Current Location" required></div>
+                    <div class="row g-2">
+                        <div class="col-6"><input id="current-lat" class="form-control" placeholder="Current Lat" required></div>
+                        <div class="col-6"><input id="current-lng" class="form-control" placeholder="Current Lng" required></div>
+                    </div>
+                    <div class="row g-2 mt-1">
+                        <div class="col-6"><input id="destination-lat" class="form-control" placeholder="Destination Lat"></div>
+                        <div class="col-6"><input id="destination-lng" class="form-control" placeholder="Destination Lng"></div>
+                    </div>
+                    <div class="row g-2 mt-1">
+                        <div class="col-6">
+                            <select id="weather-condition" class="form-select">
+                                <option value="clear">clear</option>
+                                <option value="rain">rain</option>
+                                <option value="storm">storm</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <select id="traffic-level" class="form-select">
+                                <option value="light">light</option>
+                                <option value="moderate">moderate</option>
+                                <option value="heavy">heavy</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-2"><input id="eta-delay" class="form-control" type="number" value="0" min="0" placeholder="ETA Delay Minutes"></div>
+                    <button class="btn btn-theme w-100 mt-3" type="submit">Save Shipment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+>
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const CURRENT_USER_ROLE = "{{ current_user.role }}";
+</script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

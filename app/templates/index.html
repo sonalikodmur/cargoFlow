@@ -1,0 +1,5 @@
+{% if current_user %}
+  <script>window.location.href = "{{ url_for('main.dashboard') }}";</script>
+{% else %}
+  <script>window.location.href = "{{ url_for('auth.login') }}";</script>
+{% endif %}
