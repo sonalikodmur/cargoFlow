@@ -12,7 +12,7 @@ Ensure Python is installed on your system. You can verify using:
 python --version
 
 2. Clone or Download the Repository
-git clone https://github.com/your-username/your-repo-name.git
+git clone [https://github.com/your-username/your-repo-name.git](https://github.com/sonalikodmur/cargoFlow.git)
 cd your-repo-name
 
 3. Install Dependencies
